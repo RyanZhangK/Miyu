@@ -6,22 +6,21 @@
 
 结合 Nouveau 的代号数据与 ArchWiki 的官方驱动支持状态，整理出的显卡驱动安装对照表如下：
 
-| 显卡型号 | 架构 (Family 代号) | 需要安装的驱动包 (推荐 `-dkms` 版) |
-| :--- | :--- | :--- |
-| **GeForce RTX 50系** (及更新) | **Blackwell (GBXXX)** | `nvidia-open-dkms` |
-| **GeForce RTX 40系** | **Ada Lovelace (NV190 / ADXXX)** | `nvidia-open-dkms` |
-| **GeForce RTX 30系** | **Ampere (NV170 / GAXXX)** | `nvidia-open-dkms` |
-| **GeForce RTX 20系 / GTX 16系** | **Turing (NV160 / TUXXX)** | `nvidia-open-dkms` |
-| **NVIDIA Titan V / Quadro GV100** | **Volta (NV140 / GV100)** | `nvidia-580xx-dkms` |
-| **GeForce GTX 10系** | **Pascal (NV130 / GPXXX)** | `nvidia-580xx-dkms` |
-| **GeForce GTX 750 / 900系** | **Maxwell (NV110 / GMXXX)** | `nvidia-580xx-dkms` |
-| **GeForce GTX 600 / 700系 / Titan** | **Kepler (NVE0 / GKXXX)** | `nvidia-470xx-dkms` |
-| **GeForce GTX 400 / 500系** | **Fermi (NVC0 / GF1XX)** | `nvidia-390xx-dkms` |
-| **GeForce 8/9/100/200/300系** | **Tesla (NV50 / G80-90-GT2XX)** | `nvidia-340xx-dkms` |
-| **GeForce 6/7系** (及更老) | **Curie (NV40 / G70)** 及更早 | *(已停止打包，不再支持)* |
+| 显卡型号                            | 架构 (Family 代号)               | 需要安装的驱动包 (推荐 `-dkms` 版) |
+| :---------------------------------- | :------------------------------- | :--------------------------------- |
+| **GeForce RTX 50系** (及更新)       | **Blackwell (GBXXX)**            | `nvidia-open-dkms`                 |
+| **GeForce RTX 40系**                | **Ada Lovelace (NV190 / ADXXX)** | `nvidia-open-dkms`                 |
+| **GeForce RTX 30系**                | **Ampere (NV170 / GAXXX)**       | `nvidia-open-dkms`                 |
+| **GeForce RTX 20系 / GTX 16系**     | **Turing (NV160 / TUXXX)**       | `nvidia-open-dkms`                 |
+| **NVIDIA Titan V / Quadro GV100**   | **Volta (NV140 / GV100)**        | `nvidia-580xx-dkms`                |
+| **GeForce GTX 10系**                | **Pascal (NV130 / GPXXX)**       | `nvidia-580xx-dkms`                |
+| **GeForce GTX 750 / 900系**         | **Maxwell (NV110 / GMXXX)**      | `nvidia-580xx-dkms`                |
+| **GeForce GTX 600 / 700系 / Titan** | **Kepler (NVE0 / GKXXX)**        | `nvidia-470xx-dkms`                |
+| **GeForce GTX 400 / 500系**         | **Fermi (NVC0 / GF1XX)**         | `nvidia-390xx-dkms`                |
+| **GeForce 8/9/100/200/300系**       | **Tesla (NV50 / G80-90-GT2XX)**  | `nvidia-340xx-dkms`                |
+| **GeForce 6/7系** (及更老)          | **Curie (NV40 / G70)** 及更早    | *(已停止打包，不再支持)*           |
 
-## 警告：`nvidia`和`nvidia-dkms`已经不存在了，需要装`nvidia`的显卡要去aur上装`nvidia-580xx-dkms`，详情看表格。
-*(注：根据 ArchWiki 提示，Turing 到 Ada Lovelace 架构均被 `nvidia-open` 支持。但在部分搭载 Ampere 显卡的笔记本上可能会遭遇完全崩溃的电源管理问题，遇到此类特定问题时可备选使用 `nvidia-580xx-dkms`，否则一律推荐使用 `nvidia-open-dkms`。)*
+## 警告：`nvidia`和`nvidia-dkms`已经不存在了，需要装`nvidia`的显卡要去aur上装`nvidia-版本号-dkms`，详情看表格。
 
 ---
 
@@ -39,7 +38,7 @@ sudo pacman -S --needed linux-headers
 如果你使用其他内核（例如 `linux-zen`）： 请替换为相应的包名（如 `linux-zen-headers`）。
 
 2. 安装驱动及工具集
-除了对照表中的驱动包外，还需要安装基础的 nvidia-utils。为了支持 32 位应用（如 Steam 游戏），建议一并安装 lib32- 的工具集：
+除了对照表中的驱动包外，还需要安装基础的 `nvidia-utils`。如果驱动包不是`nvidia-open`，需要从aur安装对应版本的工具集，如`nvidia-580xx-dkms`需要安装`nvidia-580xx-utils`。为了支持 32 位应用（如 Steam 游戏），建议一并安装 lib32- 的工具集：
 ```
 sudo pacman -S nvidia-open-dkms nvidia-utils lib32-nvidia-utils
 ```
